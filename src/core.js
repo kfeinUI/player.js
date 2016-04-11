@@ -17,6 +17,10 @@ playerjs.origin = function(url){
   return url.split('/').slice(0,3).join('/');
 };
 
+playerjs.stripHash = function(url){
+  return playerjs.isString(url) ? url.split('#')[0] : null;
+};
+
 playerjs.addEvent = function(elem, type, eventHandle) {
   if (!elem) { return; }
   if ( elem.addEventListener ) {

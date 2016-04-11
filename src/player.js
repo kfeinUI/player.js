@@ -159,7 +159,7 @@ playerjs.Player.prototype.receive = function(e){
   }
 
   // We need to determine if we are ready.
-  if (data.event === 'ready' && data.value && data.value.src === this.elem.src){
+  if (data.event === 'ready' && data.value && data.value.src === playerjs.stripHash(this.elem.src)){
     this.ready(data);
   }
 

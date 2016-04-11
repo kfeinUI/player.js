@@ -1,6 +1,6 @@
-/*! Player.js - v0.0.11 - 2015-07-24
+/*! Player.js - v0.0.11 - 2016-04-11
 * http://github.com/embedly/player.js
-* Copyright (c) 2015 Embedly; Licensed BSD */
+* Copyright (c) 2016 Embedly; Licensed BSD */
 (function(window, document){
 var playerjs = {};
 
@@ -19,6 +19,10 @@ playerjs.origin = function(url){
   }
 
   return url.split('/').slice(0,3).join('/');
+};
+
+playerjs.stripHash = function(url){
+  return playerjs.isString(url) ? url.split('#')[0] : null;
 };
 
 playerjs.addEvent = function(elem, type, eventHandle) {
@@ -381,7 +385,7 @@ playerjs.Player.prototype.receive = function(e){
   }
 
   // We need to determine if we are ready.
-  if (data.event === 'ready' && data.value && data.value.src === this.elem.src){
+  if (data.event === 'ready' && data.value && data.value.src === playerjs.stripHash(this.elem.src)){
     this.ready(data);
   }
 
@@ -743,7 +747,7 @@ playerjs.Receiver.prototype.ready = function(){
   this.isReady = true;
 
   var data = {
-    src: window.location.toString(),
+    src: playerjs.stripHash(window.location.toString()), //strip the hash since the playerjs.Player elem won't convey it
     events: this.supported.events,
     methods: this.supported.methods
   };

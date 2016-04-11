@@ -199,7 +199,7 @@ playerjs.Receiver.prototype.ready = function(){
   this.isReady = true;
 
   var data = {
-    src: window.location.toString(),
+    src: playerjs.stripHash(window.location.toString()), //strip the hash since the playerjs.Player elem won't convey it
     events: this.supported.events,
     methods: this.supported.methods
   };
